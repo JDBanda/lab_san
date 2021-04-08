@@ -1,0 +1,13 @@
+{% extends 'venta/menu_caja.html' %}
+{% block title %}Caja{% endblock title %}
+{% block data %}
+<section>
+    <div class="container">
+        <form action="" method="post">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit">Guardar/Actualizar</button>
+        </form>
+    </div>
+</section>
+{% endblock data %}

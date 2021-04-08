@@ -1,0 +1,45 @@
+.container-sm{
+    padding: 15px;
+    margin-top: 5%;
+    width: 50%;
+    border-style: outset;
+    border-radius: 5px;
+    background-image: url("img/lab.gif");
+}
+
+.table-wrapper {
+    height: 500px;
+    overflow: auto;
+    display:inline-block;
+}
+
+.container.reporte .total {
+    text-align: end;
+}
+
+.encabezado{
+    display: none;
+}
+
+@media print {
+    /* Reglas para imprimir en formato vertical */
+    .container.reporte form, .container.reporte h5, .container.reporte button{
+        display: none;
+    }
+
+    .encabezado{
+    display: block;
+    }
+
+    .encabezado {
+            text-align: center;
+        }
+
+    .text-head {
+        font-size: 2rem;
+    }
+
+    .text-sub {
+        font-size: 1.7rem;
+    }
+}

@@ -1,0 +1,79 @@
+{% extends 'venta/menu_caja.html' %}
+{% block title %}Reportes de medicos{% endblock title %}
+{% block data %}
+<br>
+<div class="container reporte">
+
+    <div class="encabezado">
+        <hr>
+        <strong>
+            <p class="text-head">Laboratorio de análisis clínicos S.A. de C.V.</p>
+        </strong>
+        <p class="text-sub">Sucursal de radiografía</p>
+        <p class="text-sub">Orden de trabajo</p>
+        <p>
+            Contacto, Localización, fecha, hora, etc. Lorem ipsum dolor sit amet consectetur adipisicing elit. A, dicta?
+            Maxime, quia harum ab porro dolores ipsum animi id dolor earum dolorem eius sed architecto beatae
+            reprehenderit
+            nulla est reiciendis.
+        </p>
+        <hr>
+    </div>
+
+    <div class="row text-sub">
+        <div class="col">Comisionado</div>
+        <div class="col">
+            <strong>
+                {{medico.medi_apellidoPaterno}}
+                {{medico.medi_apellidoMaterno}}
+                {{medico.medi_nombre}}
+            </strong>
+        </div>
+    </div>
+
+    <h5>Filtrar por:</h5>
+
+    <form method="get">
+        Monto: {{servicio.form.reng_monto}}
+        Nota de venta: {{servicio.form.reng_idNotaDeVenta}}
+        Descuento: {{servicio.form.reng_descuento}}
+        <button type="submit" class="btn btn-primary">Buscar
+            <i class='bx bx-search-alt'></i>
+        </button>
+    </form>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-striped ">
+            <tr>
+                <th>Fecha</th>
+                <th>Nombre servicio</th>
+                <th>Monto del servicio</th>
+                <th>Descuento del servicio</th>
+                <th>Folio de venta</th>
+                <th>Comisión</th>
+            </tr>
+            {% for s in servicio.qs %}
+            <tr>
+                <td>{{s.reng_idNotaDeVenta.nota_fecha}}</td>
+                <td>{{s.reng_idServicio.serv_nombre}}</td>
+                <td class="op" comision="{{s.reng_medico.medi_comision}}" monto="{{s.reng_monto}}">
+                    ${{s.reng_monto}}</td>
+                <td>{{s.reng_descuento}}%</td>
+                <td>{{s.reng_idNotaDeVenta}}</td>
+                <td class="subtotal"></td>
+            </tr>
+            {% endfor %}
+        </table>
+        <hr>
+        <div class="total">
+            <p class="text-sub">Total</p>
+        </div>
+        <hr>
+    </div>
+    <button class="btn btn-success" onclick="window.print()">Imprimir
+        <i class='bx bxs-printer'></i>
+    </button>
+</div>
+{% load static %}
+<script src="{% static 'venta/js/reporteMedico.js' %}"></script>
+{% endblock data %}

@@ -1,0 +1,51 @@
+{% extends 'venta/menu_caja.html' %}
+{% block title %}Medicos{% endblock title %}
+{% block data %}
+<div class="container">
+    <br>
+    <a href="{% url 'medico_create' %}" class="btn btn-success">Crear un nuevo medico</a>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-dark table-striped ">
+            <tr>
+                <th>Apellido Paterno</th>
+                <th>Apellido Materno</th>
+                <th>Nombre</th>
+                <th>Direccion</th>
+                <th>Localidad</th>
+                <th>Pais</th>
+                <th>Estado</th>
+                <th>Municipio</th>
+                <th>C. P.</th>
+                <th>Teléfono 1</th>
+                <th>Teléfono 2</th>
+                <th>Email</th>
+                <th>Comision</th>
+                <th>Especialidad</th>
+                <th></th>
+            </tr>
+            {% for m in medico %}
+            <tr>
+                <td>{{m.medi_apellidoPaterno}}</td>
+                <td>{{m.medi_apellidoMaterno}}</td>
+                <td>{{m.medi_nombre}}</td>
+                <td>{{m.medi_direccion}}</td>
+                <td>{{m.medi_localidad}}</td>
+                <td>{{m.medi_pais}}</td>
+                <td>{{m.medi_estado}}</td>
+                <td>{{m.medi_municipio}}</td>
+                <td>{{m.medi_cp}}</td>
+                <td>{{m.medi_tel1}}</td>
+                <td>{{m.medi_tel2}}</td>
+                <td>{{m.medi_email}}</td>
+                <td>{{m.medi_comision}}</td>
+                <td>{{m.medi_especialidad}}</td>
+                <td>
+                    <a class="btn btn-primary" href="{% url 'medico_edit' m.id %}"><i class='bx bxs-edit-alt'></i></a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock data %}

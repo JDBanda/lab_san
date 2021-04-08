@@ -1,0 +1,41 @@
+{% extends "../venta/base.html" %}
+
+{% block content %}
+
+<section>
+    <div class="container-sm banner_img">
+        {% if form.errors %}
+        <div class="alert alert-danger" role="alert">
+            Tu nombre de usuario o contraseña no coincide. Vuelve a intentarlo
+        </div>
+        {% endif %}
+
+        {% if next %}
+        {% if user.is_authenticated %}
+        <div class="alert alert-warning" role="alert">
+            Tu cuenta parece no tener los permisos necesarios para acceder a esta página.
+            Para continuar por favor usa una cuenta que tenga los permisos necesarios.
+        </div>
+        {% else %}
+        <div class="alert alert-info" role="alert">
+            Por favor inicia sesión para ver esta página
+        </div>
+        {% endif %}
+        {% endif %}
+
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <label>Ingresa tu usuario</label>
+            {{ form.username }}
+            <br>
+            <label>Ingresa tu contraseña</label>
+            {{ form.password }}
+            <br>
+            <div class="d-grid gap-2 col-6 mx-auto">
+                <button class="btn btn-primary" type="submit">Ingresar</button>
+                <a href="{% url 'inicio' %}" class="btn btn-danger">Regresar</a>
+            </div>
+        </form>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,186 @@
+{% extends 'venta/menu_caja.html' %}
+{% block title %}Caja{% endblock title %}
+{% block data %}
+<div class="container">
+
+    <div class="card">
+        <div class="card-header">
+            <div class="row text-center">
+                <div class="col">
+                    <p>Hora: HH:MM</p>
+                </div>
+                <div class="col">
+                    Le atiende: <span id="usuario" user="{{user.id}}">{{user.first_name}}
+                        {{user.last_name}}</span>
+                </div>
+                <div class="col">
+                    <p>Fecha: 16 de Mes del 2021</p>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row text-center">
+                <div class="col">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                        Registrar
+                    </button>
+                </div>
+                <div class="col">
+                    <a href="{% url 'paciente_list' %}" class="btn btn-outline-secondary" role="button">Pacientes</a>
+                </div>
+                <div class="col">
+                    <a href="{% url 'medico_list' %}" class="btn btn-outline-info"> Medico </a>
+                </div>
+                <div class="col">
+                    <a href="{% url 'pdf' %}" class="btn btn-outline-warning">Imprimir ultima nota</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card-footer">
+        <form action_url="{% url 'prueba' %}" method="post" id="nota">
+            {% csrf_token %}
+            <div class="row">
+                <div class="col">
+                    <label>Seleccionar paciente</label>
+                    <select class="form-select" aria-label="Default select example" id="NotaPaciente">
+                        <option>-- No seleccionado --</option>
+                        {% for p in paciente %}
+                        <option value="{{p.id}}">
+                            {{p.paci_apellidoPaterno}} {{p.paci_apellidoMaterno}} {{p.paci_nombre}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Fecha de consulta</label>
+                    <input type="date" class="form-control" id="NotaFecha">
+                </div>
+                <div class="col">
+                    <label>Modo de pago</label>
+                    <select class="form-select" aria-label="Default select example" id="NotaModoPago">
+                        <option>-- No seleccionado --</option>
+                        {% for m in modo_pago %}
+                        <option value="{{m.id}}">
+                            {{m.modo_nombre}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col">
+                    <label>Pago</label>
+                    <input type="number" class="form-control" id="NotaPago">
+                </div>
+                <div class="col">
+                    <label>Status</label>
+                    <select class="form-select" aria-label="Default select example" id="NotaStatus">
+                        <option>-- No seleccionado --</option>
+                        {% for s in status %}
+                        <option value="{{s.id}}">
+                            {{s.status_nombre}}
+                        </option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="col">
+                    <label>Recibe</label>
+                    <input type="text" class="form-control" id="NotaRecibe">
+                </div>
+            </div>
+            <div class="row fs-2">
+                <div class="col">
+                    <button type="submit" class="btn btn-success">Registrar nota</button>
+                </div>
+                <div class="col text-end" id="sumaTotal" suma="">
+                </div>
+            </div>
+        </form>
+        <br>
+        <table class="table table-dark table-striped" id="table-renglon">
+            <tr>
+                <th></th>
+                <th>Medico</th>
+                <th>Servicio</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Descuento</th>
+                <th>Monto</th>
+            </tr>
+            <!--Aqui empiezan los renglones-->
+
+            <!--Aqui terminan-->
+        </table>
+    </div>
+</div>
+</div>
+
+<!--Modal para agregar renglon-->
+<section>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLabel">Renglón Servicio</h4>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <!--Datos del renglon-->
+                    <div class="row">
+                        <div class="col">
+                            <!--select de servicios-->
+                            <select class="form-select" aria-label="Default select example" id="select-servicio">
+                                <option>-- No seleccionado --</option>
+                                {% for serv in servicio %}
+                                <option value="{{serv.id}}" price="{{serv.serv_precio}}">
+                                    <p>{{serv.serv_nombre}}</p>
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="number" placeholder="Descuento" id="modal-descuento">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col">
+                            <!--select de medico-->
+                            <select class="form-select" aria-label="Default select example" id="select-medico">
+                                <option>-- No seleccionado --</option>
+                                {% for medi in medico %}
+                                <option value="{{medi.id}}">
+                                    {{medi.medi_apellidoPaterno}} {{medi.medi_apellidoMaterno}} {{medi.medi_nombre}}
+                                </option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col">
+                            <input class="form-control" type="number" placeholder="Cantidad" id="modal-cantidad">
+                        </div>
+                    </div>
+
+                </div>
+                <div class="modal-footer">
+                    <div class="d-grid gap-2 col-4 mx-auto">
+                        <button type="button" class="btn btn-success btn-lg" id="obtener-monto">
+                            Agregar
+                        </button>
+                        <button type="button" class="btn btn-secondary btn-lg" id="editar-renglon">
+                            Editar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--Modal to register-->
+
+{% endblock data %}
+{% block scripts %}
+{% load static %}
+<script src="{% static 'venta/js/agregar.js' %}"></script>
+{% endblock scripts %}

@@ -1,0 +1,11 @@
+{% extends 'caja/access.html' %}
+{% block content %}
+<br>
+<div class="container-sm">
+    <form action="" method="post">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit" class="btn btn-success"><i class='bx bx-plus-medical'></i></button>
+    </form>
+</div>
+{% endblock content %}

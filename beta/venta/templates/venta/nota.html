@@ -1,0 +1,162 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Orden de trabajo</title>
+</head>
+
+<body>
+
+    <style>
+        .encabezado {
+            text-align: center;
+        }
+
+        .text-head {
+            font-size: 2rem;
+        }
+
+        .text-sub {
+            font-size: 1.7rem;
+        }
+
+        .paciente,
+        .orden {
+            font-size: 1.2rem;
+            padding: 2px;
+            text-align: justify;
+        }
+
+        .paciente {
+            border: 2px groove gainsboro;
+            background-color: gainsboro;
+        }
+
+        .orden {
+            border: 2px groove cornflowerblue;
+            background-color: cornflowerblue;
+        }
+
+        .pago {
+            border: 2px groove crimson;
+            background-color: crimson;
+            font-size: 1.5rem;
+            padding: 2px;
+            color: aliceblue;
+        }
+
+        div table,
+        th,
+        td {
+            border: 1px solid black;
+            font-size: 1.15rem;
+            padding: 2px;
+        }
+    </style>
+
+    <div class="encabezado">
+        <hr>
+        <strong>
+            <p class="text-head">Laboratorio de análisis clínicos S.A. de C.V.</p>
+        </strong>
+        <p class="text-sub">Sucursal de radiografía</p>
+        <p class="text-sub">Orden de trabajo</p>
+    </div>
+    <p>
+        Contacto, Localización, fecha, hora, etc. Lorem ipsum dolor sit amet consectetur adipisicing elit. A, dicta?
+        Maxime, quia harum ab porro dolores ipsum animi id dolor earum dolorem eius sed architecto beatae reprehenderit
+        nulla est reiciendis.
+    </p>
+    <hr>
+    <!--Tabla de datos del paciente-->
+    <table>
+        <tr>
+            <th class="paciente">Datos del paciente</th>
+            <th class="orden">Datos de la orden</th>
+        </tr>
+        <tr>
+            <td class="paciente">
+                <strong>Nombre del paciente: </strong>
+                {{nota.nota_idPaciente.paci_apellidoPaterno}}
+                {{nota.nota_idPaciente.paci_apellidoMaterno}}
+                {{nota.nota_idPaciente.paci_nombre}}
+                <br>
+                <strong>Domicilio: </strong>
+                {{nota.nota_idPaciente.paci_direccion}}
+                {{nota.nota_idPaciente.paci_localidad}},
+                {{nota.nota_idPaciente.paci_municipio}},
+                {{nota.nota_idPaciente.paci_estado}},
+                {{nota.nota_idPaciente.paci_pais}}.
+                {{nota.nota_idPaciente.paci_cp}}
+                <br>
+                <strong>Contacto: </strong>
+                <br>
+                Teléfono(s): {{nota.nota_idPaciente.paci_tel1}},
+                {{nota.nota_idPaciente.paci_tel2}}
+                <br>
+                Email: {{nota.nota_idPaciente.paci_email}}
+            </td>
+            <td class="orden">
+                <strong>Número de orden:</strong> {{nota.id}}
+                <br>
+                <strong>Fecha de entrega:</strong> {{nota.nota_fecha}}
+            </td>
+        </tr>
+    </table>
+    <!--Tabla de estudios-->
+    <h1 class="encabezado">Detalle de los estudios</h1>
+    <div class="estudios">
+        <table class="encabezado">
+            <tr>
+                <th>Servicio</th>
+                <th>Médico</th>
+                <th>Cantidad</th>
+                <th>Precio</th>
+                <th>Descuento</th>
+                <th>Monto</th>
+            </tr>
+            {% for renglon in renglones %}
+            <tr>
+                <td>{{renglon.reng_idServicio.serv_nombre}}</td>
+                <td>
+                    {{renglon.reng_medico.medi_apellidoPaterno}}
+                    {{renglon.reng_medico.medi_apellidoMaterno}}
+                    {{renglon.reng_medico.medi_nombre}}
+                </td>
+                <td>{{renglon.reng_cantidad}}</td>
+                <td>${{renglon.reng_idServicio.serv_precio}}</td>
+                <td>{{renglon.reng_descuento}}%</td>
+                <td>${{renglon.reng_monto}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <!--Tabla de pago-->
+    <hr>
+    <table>
+        <tr>
+            <td class="paciente">
+                <strong>Modo de pago: </strong>
+                {{nota.nota_modoPago}}
+                <br>
+                <strong>Status: </strong>
+                {{nota.nota_statusPago}}
+                <br>
+                <strong>Recibe: </strong>{{nota.nota_entrega}}
+            </td>
+            <td class="pago">
+                <strong>Total a pagar: </strong>{{nota.nota_total}}
+                <br>
+                {% if nota.nota_pago == nota.nota_total %}
+                <strong>PAGADO</strong>
+                {% else %}
+                <strong>Anticipo: </strong>{{nota.nota_pago}}
+                <br>
+                <strong>Saldo: </strong>{{saldo}}
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+</body>
+
+</html>

@@ -1,0 +1,45 @@
+{% extends 'venta/menu_caja.html' %}
+{% block title %}Caja{% endblock title %}
+{% block data %}
+<div class="container">
+    <br>
+    <a href="{% url 'medico_create' %}" class="btn btn-success">Crear un nuevo medico</a>
+    <hr>
+    <table class="table table-dark table-striped">
+        <tr>
+            <th>Apellido Paterno</th>
+            <th>Apellido Materno</th>
+            <th>Nombre</th>
+            <th>Direccion</th>
+            <th>Localidad</th>
+            <th>Pais</th>
+            <th>Estado</th>
+            <th>Municipio</th>
+            <th>C. P.</th>
+            <th>Teléfono 1</th>
+            <th>Teléfono 2</th>
+            <th>Email</th>
+            <th></th>
+        </tr>
+        {% for p in paciente %}
+        <tr>
+            <td>{{p.paci_apellidoPaterno}}</td>
+            <td>{{p.paci_apellidoMaterno}}</td>
+            <td>{{p.paci_nombre}}</td>
+            <td>{{p.paci_direccion}}</td>
+            <td>{{p.paci_localidad}}</td>
+            <td>{{p.paci_pais}}</td>
+            <td>{{p.paci_estado}}</td>
+            <td>{{p.paci_municipio}}</td>
+            <td>{{p.paci_cp}}</td>
+            <td>{{p.paci_tel1}}</td>
+            <td>{{p.paci_tel2}}</td>
+            <td>{{p.paci_email}}</td>
+            <td>
+                <a class="btn btn-primary" href="{% url 'paciente_edit' p.id %}"><i class='bx bxs-edit-alt'></i></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock data %}

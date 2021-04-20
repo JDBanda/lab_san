@@ -1,5 +1,7 @@
 from django.urls import path
 from . import views
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('', views.menu, name='inicio'),
@@ -24,4 +26,4 @@ urlpatterns = [
     path('reportes/medico/<str:pk>', views.reporteMedico, name='reporte'),
     # Reporte de vena
     path('reportes/venta/', views.reporteVenta, name='reporte_venta'),
-]
+] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

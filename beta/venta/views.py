@@ -215,3 +215,8 @@ def reporteMedico(request, pk):
         'medico': medico,
     }
     return render(request, 'venta/reporte_medico.html', context)
+
+def reporteVenta(request):
+    notas = NotaFilter(request.GET, queryset=NotaDeVenta.objects.all())
+    context = {'notas': notas}
+    return render(request, 'venta/reporte_ventas.html', context)

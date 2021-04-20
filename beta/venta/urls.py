@@ -21,6 +21,7 @@ urlpatterns = [
     path('caja/nota/pdf', views.render_pdf_view, name='pdf'),
     # Reportes de médico
     path('reportes/medico/', views.menuMedicos, name='medicos'),
-    path('reportes/medico/<str:pk>', views.reporteMedico, name='reporte')
-
+    path('reportes/medico/<str:pk>', views.reporteMedico, name='reporte'),
+    # Reporte de vena
+    path('reportes/venta/', views.reporteVenta, name='reporte_venta'),
 ]

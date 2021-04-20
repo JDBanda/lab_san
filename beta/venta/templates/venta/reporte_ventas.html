@@ -1,0 +1,75 @@
+{% extends 'venta/menu_caja.html' %}
+{% block title %}Reportes de ventas{% endblock title %}
+{% block data %}
+<br>
+<div class="container reporte">
+    <div class="encabezado">
+
+        <hr>
+        <strong>
+            <p class="text-head">Laboratorio de análisis clínicos S.A. de C.V.</p>
+        </strong>
+        <p class="text-sub">Sucursal de radiografía</p>
+        <p class="text-sub">Reporte de ventas</p>
+        <p>
+            Contacto, Localización, fecha, hora, etc. Lorem ipsum dolor sit amet consectetur adipisicing elit. A, dicta?
+            Maxime, quia harum ab porro dolores ipsum animi id dolor earum dolorem eius sed architecto beatae
+            reprehenderit
+            nulla est reiciendis.
+        </p>
+        <hr>
+    </div>
+    <h5>Filtrar por:</h5>
+
+    <form method="get">
+        <p>Para buscar por fecha utilice el formato (MM/DD/AAAA)</p>
+        Status de pago: {{notas.form.nota_statusPago}}
+        Fecha exacta: {{notas.form.nota_fecha}}
+        <hr>
+        desde la fecha: {{notas.form.start_date}}
+        hasta la fecha: {{notas.form.end_date}}
+        <button type="submit" class="btn btn-primary">Buscar
+            <i class='bx bx-search-alt'></i>
+        </button>
+    </form>
+    <hr>
+    <div class="table-responsive">
+        <table class="table table-striped ">
+            <tr>
+                <th>Paciente</th>
+                <th>Fecha</th>
+                <th>Status del pago</th>
+                <th>Modo pago</th>
+                <th>Anticipo</th>
+                <th>Total de la nota</th>
+            </tr>
+            {% for s in notas.qs %}
+            <tr>
+                <td>{{s.nota_idPaciente}}</td>
+                <td>{{s.nota_fecha}}</td>
+                <td>{{s.nota_statusPago}}</td>
+                <td>{{s.nota_modoPago}}</td>
+                <td class="anticipo" subtotal="{{s.nota_pago}}">${{s.nota_pago}}</td>
+                <td class="subtotal" subtotal="{{s.nota_total}}">${{s.nota_total}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <hr>
+        <div class="total">
+            <p class="text-sub">Total teórico de venta:
+                <span id="total-teorico">0</span>
+            </p>
+            <hr>
+            <p class="text-sub">Total teórico de anticipos:
+                <span id="anticipo-teorico">0</span>
+            </p>
+        </div>
+        <hr>
+    </div>
+    <button class="btn btn-success" onclick="window.print()">Imprimir
+        <i class='bx bxs-printer'></i>
+    </button>
+</div>
+{% load static %}
+<script src="{% static 'venta/js/reportVenta.js' %}"></script>
+{% endblock data %}

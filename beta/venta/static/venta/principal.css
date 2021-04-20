@@ -13,7 +13,7 @@
     display:inline-block;
 }
 
-.container.reporte .total {
+.container.reporte .total, .total  {
     text-align: end;
 }
 

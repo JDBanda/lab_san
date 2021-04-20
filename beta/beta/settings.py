@@ -25,7 +25,7 @@ SECRET_KEY = '-@v)g0v&)5svvr#!7x$y3@9xogu91oh_bsr4d_(!ua1u0l)jr5'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -77,7 +77,7 @@ WSGI_APPLICATION = 'beta.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
-
+#LOCAL
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -88,7 +88,18 @@ DATABASES = {
         'PORT': '3306',
     }
 }
-
+''' 
+#PRODUCCION
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'jdbada$db_beta',
+        'USER': 'jdbada',
+        'PASSWORD': '1234.qwer',
+        'HOST': 'jdbada.mysql.pythonanywhere-services.com',
+    }
+}
+'''
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -127,6 +138,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATIC_URL = '/static/'
-
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
 # LOGIN REDIRECT, a donde lleva despues de iniciar sesión (provisional)
 LOGIN_REDIRECT_URL = '/'
